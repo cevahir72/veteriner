@@ -74,6 +74,12 @@ const faqs: Question[] = [
   },
 ];
 
+const clinicAddress = "40.964253, 29.105190";
+const clinicCoordinates = "40.964253,29.105190";
+const mapQuery = encodeURIComponent(clinicCoordinates);
+const googleMapsEmbedUrl = `https://www.google.com/maps?q=${mapQuery}&z=15&output=embed`;
+const googleMapsDirectionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${mapQuery}`;
+
 const iconPaths = {
   arrow:
     "M7.25 12a.75.75 0 0 1 .75-.75h7.19l-2.22-2.22a.75.75 0 1 1 1.06-1.06l3.5 3.5a.75.75 0 0 1 0 1.06l-3.5 3.5a.75.75 0 1 1-1.06-1.06l2.22-2.22H8a.75.75 0 0 1-.75-.75Z",
@@ -126,7 +132,7 @@ function Icon({
 export default function Home() {
   return (
     <main className="flex-1 bg-background text-on-surface">
-      <section id="home" className="relative isolate flex min-h-screen items-center overflow-hidden pt-24">
+      <section id="home" className="relative isolate flex min-h-screen items-center overflow-hidden pt-24 sm:pt-26">
         <Image
           alt="Profesyonel veterinerin saglikli bir yavru kopegi kucaginda tuttugu modern klinik goruntusu"
           className="absolute inset-0 h-full w-full object-cover"
@@ -138,12 +144,12 @@ export default function Home() {
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(251,249,248,0.98)_0%,rgba(251,249,248,0.84)_35%,rgba(251,249,248,0.3)_58%,rgba(251,249,248,0.04)_100%)]" />
         <div className="absolute inset-x-0 bottom-0 h-40 bg-[linear-gradient(180deg,transparent,rgba(251,249,248,0.95))]" />
 
-        <div className="relative mx-auto grid w-full max-w-7xl gap-16 px-4 py-20 sm:px-6 lg:grid-cols-[minmax(0,1fr)_20rem] lg:px-8">
+        <div className="relative mx-auto grid w-full max-w-7xl gap-12 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[minmax(0,1fr)_20rem] lg:px-8">
           <div className="max-w-2xl">
             <span className="mb-6 inline-flex rounded-full bg-secondary-container px-4 py-2 text-label-caps text-secondary">
               EST. 2024 • BOUTIQUE CARE
             </span>
-            <h1 className="max-w-xl font-display text-5xl leading-none font-semibold tracking-[-0.04em] text-primary sm:text-6xl lg:text-7xl">
+            <h1 className="max-w-xl font-display text-4xl leading-none font-semibold tracking-[-0.04em] text-primary sm:text-6xl lg:text-7xl">
               7/24 Uzman Bakim
             </h1>
             <p className="mt-6 max-w-xl text-body-lg text-on-surface-variant">
@@ -151,13 +157,13 @@ export default function Home() {
             </p>
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
               <Link
-                className="inline-flex items-center justify-center rounded-lg bg-primary-container px-8 py-4 text-label-caps text-on-primary hover:-translate-y-0.5 hover:shadow-lg"
+                className="inline-flex items-center justify-center rounded-lg bg-primary-container px-6 py-4 text-label-caps text-on-primary hover:-translate-y-0.5 hover:shadow-lg sm:px-8"
                 href="#contact"
               >
                 Randevu Oluştur
               </Link>
               <Link
-                className="inline-flex items-center justify-center rounded-lg border border-outline bg-white/60 px-8 py-4 text-label-caps text-primary backdrop-blur hover:bg-surface-container"
+                className="inline-flex items-center justify-center rounded-lg border border-outline bg-white/60 px-6 py-4 text-label-caps text-primary backdrop-blur hover:bg-surface-container sm:px-8"
                 href="#services"
               >
                 Hizmetlerimiz
@@ -198,7 +204,7 @@ export default function Home() {
           {services.map((service) => (
             <article
               key={service.title}
-              className="group flex h-full flex-col rounded-3xl border border-transparent bg-surface-container-lowest p-8 shadow-[0_20px_60px_rgba(26,43,60,0.06)] transition duration-500 hover:-translate-y-1 hover:border-secondary-container hover:shadow-[0_28px_90px_rgba(26,43,60,0.12)] lg:p-10"
+              className="group flex h-full flex-col rounded-3xl border border-transparent bg-surface-container-lowest p-6 shadow-[0_20px_60px_rgba(26,43,60,0.06)] transition duration-500 hover:-translate-y-1 hover:border-secondary-container hover:shadow-[0_28px_90px_rgba(26,43,60,0.12)] sm:p-8 lg:p-10"
             >
               <div className="mb-8 text-primary transition duration-300 group-hover:scale-110">
                 <Icon name={service.icon} className="h-10 w-10" />
@@ -228,7 +234,7 @@ export default function Home() {
             sizes="100vw"
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBGS5v23qfkmhGtoO9PIWeH4v1MeeEhFpeU2JsOH00jV8-0qy7z4yD26I3Bv3Hpqe0EIhECDBqh_EyJw8Bv_il2qBqrH2HyRlTH3BloOeeUotcqxYj3xIqc5P68hYiNdRvRDjXgmF_9Ft7nO6vmU6wtkbhqjAU_oW0Fv6HB4F3ivTh0a60hhl8aWnZCvvOcZFRMtP_cW-5B6EX0EikZKM671yfFFzphZHwGuCvJS4bxEPmUhcgkiKceLIItI5CTOH6ePF81PcgkqUN"
           />
-          <div className="relative flex flex-col items-start justify-between gap-10 px-8 py-12 sm:px-10 lg:flex-row lg:items-center lg:px-16 lg:py-20">
+          <div className="relative flex flex-col items-start justify-between gap-10 px-6 py-10 sm:px-10 sm:py-12 lg:flex-row lg:items-center lg:px-16 lg:py-20">
             <div className="max-w-2xl">
               <div className="mb-6 inline-flex items-center gap-3 text-secondary-container">
                 <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10">
@@ -236,19 +242,19 @@ export default function Home() {
                 </span>
                 <span className="text-label-caps">ACIL DURUM SERVISI</span>
               </div>
-              <h2 className="text-4xl font-semibold tracking-[-0.03em] text-white sm:text-5xl">
+              <h2 className="text-3xl font-semibold tracking-[-0.03em] text-white sm:text-5xl">
                 7/24 Nobetci Veteriner
               </h2>
               <p className="mt-5 max-w-xl text-body-lg text-on-primary-container">
                 Zamanin kritik oldugu anlarda, uzman ekibimiz ve tam donanimli unitemizle her an yaninizdayiz.
               </p>
             </div>
-            <div className="flex flex-col items-start gap-6 lg:items-end">
-              <a className="text-3xl font-bold tracking-[-0.04em] text-white sm:text-5xl" href="tel:+902120000000">
+            <div className="flex w-full flex-col items-start gap-6 lg:w-auto lg:items-end">
+              <a className="text-2xl font-bold tracking-[-0.04em] text-white sm:text-5xl" href="tel:+902120000000">
                 0212 000 00 00
               </a>
               <a
-                className="inline-flex rounded-lg bg-white px-8 py-4 text-label-caps text-primary-container hover:bg-secondary-container"
+                className="inline-flex w-full items-center justify-center rounded-lg bg-white px-8 py-4 text-label-caps text-primary-container hover:bg-secondary-container sm:w-auto"
                 href="#contact"
               >
                 Yol Tarifi Al
@@ -262,7 +268,7 @@ export default function Home() {
         <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
           <div className="relative">
             <div className="absolute -bottom-6 -right-6 hidden h-48 w-48 rounded-4xl bg-secondary-container lg:block" />
-            <div className="relative aspect-square overflow-hidden rounded-[28px] shadow-2xl">
+            <div className="relative aspect-square overflow-hidden rounded-3xl shadow-2xl">
               <Image
                 alt="Modern ve tam donanimli veteriner operasyon odasi"
                 className="object-cover"
@@ -275,14 +281,14 @@ export default function Home() {
 
           <div>
             <p className="text-label-caps text-secondary">GUVEN VE TEKNOLOJI</p>
-            <h2 className="mt-4 text-4xl font-semibold tracking-[-0.03em] text-primary sm:text-5xl">
+            <h2 className="mt-4 text-3xl font-semibold tracking-[-0.03em] text-primary sm:text-5xl">
               Modern Tip, Butik Yaklasim
             </h2>
             <p className="mt-8 text-body-lg text-on-surface-variant">
               Her petin benzersiz oldugunu biliyoruz. Teshis sureclerimizde en guncel tibbi teknolojileri kullanirken, tedavi planlarimizi tamamen bireysel ihtiyaclara gore sekillendiriyoruz.
             </p>
 
-            <div className="mt-12 grid grid-cols-2 gap-8">
+            <div className="mt-12 grid grid-cols-2 gap-6 sm:gap-8">
               {[
                 ["15+", "UZMAN HEKIM"],
                 ["24/7", "KESINTISIZ HIZMET"],
@@ -312,10 +318,10 @@ export default function Home() {
             {faqs.map((faq) => (
               <details
                 key={faq.question}
-                className="group rounded-[20px] border border-transparent bg-white p-6 shadow-sm transition hover:border-secondary-container"
+                className="group rounded-[20px] border border-transparent bg-white p-5 shadow-sm transition hover:border-secondary-container sm:p-6"
                 open={faq.open}
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-medium text-primary">
+                <summary className="flex cursor-pointer list-none items-start justify-between gap-4 text-lg font-medium text-primary">
                   <span>{faq.question}</span>
                   <Icon name="chevron" className="h-5 w-5 shrink-0 transition-transform group-open:rotate-180" />
                 </summary>
@@ -324,6 +330,75 @@ export default function Home() {
                 </p>
               </details>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="location" className="px-4 py-24 sm:px-6 lg:px-8 lg:py-30">
+        <div className="mx-auto grid max-w-7xl gap-10 rounded-4xl border border-white/70 bg-[linear-gradient(135deg,rgba(255,255,255,0.92)_0%,rgba(244,223,203,0.42)_100%)] p-6 shadow-[0_24px_80px_rgba(26,43,60,0.08)] backdrop-blur sm:p-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:p-10">
+          <div className="flex flex-col justify-between rounded-[28px] bg-primary-container px-6 py-8 text-on-primary sm:px-8">
+            <div>
+              <p className="text-label-caps text-secondary-container">GOOGLE MAPS DESTEKLI KONUM</p>
+              <h2 className="mt-4 text-3xl font-semibold tracking-[-0.03em] text-white sm:text-5xl">
+                Klinigimize kolayca ulasin
+              </h2>
+              <p className="mt-6 max-w-xl text-body-lg text-on-primary-container">
+                Konumumuzu harita uzerinde goruntuleyin, navigasyonu baslatin ve randevunuza zamaninda ulasin.
+              </p>
+            </div>
+
+            <div className="mt-10 space-y-5">
+              <div className="flex items-start gap-4 rounded-3xl border border-white/10 bg-white/8 p-5">
+                <span className="mt-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/12 text-secondary-container">
+                  <Icon name="location" className="h-5 w-5" />
+                </span>
+                <div>
+                  <p className="text-label-caps text-secondary-container">ADRES</p>
+                  <p className="mt-2 break-words text-body-md text-white">{clinicAddress}</p>
+                </div>
+              </div>
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                <a
+                  className="inline-flex items-center justify-center rounded-lg bg-secondary-container px-6 py-4 text-label-caps text-primary transition hover:-translate-y-0.5 hover:shadow-lg"
+                  href={googleMapsDirectionsUrl}
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  Yol Tarifi Al
+                </a>
+                <a
+                  className="inline-flex items-center justify-center rounded-lg border border-white/15 bg-white/8 px-6 py-4 text-label-caps text-white transition hover:bg-white/14"
+                  href={googleMapsEmbedUrl}
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  Haritada Ac
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div className="overflow-hidden rounded-[28px] border border-outline-variant/60 bg-white shadow-[0_20px_50px_rgba(26,43,60,0.08)]">
+            <div className="flex flex-col items-start gap-4 border-b border-surface-variant px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+              <div>
+                <p className="text-sm font-semibold tracking-[0.08em] text-primary">KONUM SERVISI</p>
+                <p className="mt-1 text-sm text-on-surface-variant">Google Maps uzerinden canli erisim</p>
+              </div>
+              <span className="inline-flex items-center gap-2 rounded-full bg-secondary-container px-3 py-2 text-[11px] font-semibold tracking-[0.16em] text-primary">
+                <Icon name="schedule" className="h-4 w-4" />
+                7/24 ACIK
+              </span>
+            </div>
+
+            <iframe
+              title="VETE Medical konum haritasi"
+              aria-label="VETE Medical konum haritasi"
+              className="h-80 w-full border-0 sm:h-105"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              src={googleMapsEmbedUrl}
+            />
           </div>
         </div>
       </section>

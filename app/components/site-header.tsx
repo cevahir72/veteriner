@@ -1,6 +1,16 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
 import { serviceArticles } from "@/app/data/services";
+
+const primaryLinks = [
+  { href: "/#emergency", label: "Acil" },
+  { href: "/#about", label: "Hakkımızda" },
+  { href: "/#faq", label: "Rehber" },
+  { href: "/#contact", label: "İletişim" },
+];
 
 function ChevronIcon() {
   return (
@@ -15,11 +25,54 @@ function ChevronIcon() {
   );
 }
 
-export function SiteHeader() {
+function MenuIcon({ open }: { open: boolean }) {
   return (
-    <nav className="fixed inset-x-0 top-0 z-50 border-b border-white/60 bg-white/80 backdrop-blur-md shadow-sm">
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-4 py-4 sm:px-6 lg:px-8">
-        <Link className="text-lg font-bold tracking-[0.3em] text-primary sm:text-xl" href="/">
+    <svg
+      aria-hidden="true"
+      className="h-5 w-5"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.8"
+      viewBox="0 0 24 24"
+    >
+      {open ? (
+        <path d="M6 6l12 12M18 6 6 18" />
+      ) : (
+        <path d="M4 7h16M4 12h16M4 17h16" />
+      )}
+    </svg>
+  );
+}
+
+export function SiteHeader() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const { body } = document;
+    const previousOverflow = body.style.overflow;
+
+    body.style.overflow = isMenuOpen ? "hidden" : previousOverflow;
+
+    return () => {
+      body.style.overflow = previousOverflow;
+    };
+  }, [isMenuOpen]);
+
+  const handleMenuToggle = () => {
+    setIsMenuOpen((currentValue) => !currentValue);
+  };
+
+  const handleMenuClose = () => {
+    setIsMenuOpen(false);
+  };
+
+  return (
+    <nav className="fixed inset-x-0 top-0 z-50">
+      <div className="relative z-30 border-b border-white/60 bg-white/80 shadow-sm backdrop-blur-md">
+        <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
+        <Link className="max-w-48 text-base font-bold tracking-[0.24em] text-primary sm:max-w-none sm:text-xl sm:tracking-[0.3em]" href="/" onClick={handleMenuClose}>
           VETE MEDICAL
         </Link>
         <div className="hidden items-center gap-8 md:flex">
@@ -58,25 +111,94 @@ export function SiteHeader() {
               </div>
             </div>
           </div>
-          <Link className="text-sm font-medium text-on-surface-variant hover:text-primary" href="/#emergency">
-            Acil
-          </Link>
-          <Link className="text-sm font-medium text-on-surface-variant hover:text-primary" href="/#about">
-            Hakkımızda
-          </Link>
-          <Link className="text-sm font-medium text-on-surface-variant hover:text-primary" href="/#faq">
-            Rehber
-          </Link>
-          <Link className="text-sm font-medium text-on-surface-variant hover:text-primary" href="/#contact">
-            İletişim
-          </Link>
+          {primaryLinks.map((item) => (
+            <Link key={item.href} className="text-sm font-medium text-on-surface-variant hover:text-primary" href={item.href}>
+              {item.label}
+            </Link>
+          ))}
         </div>
+        <button
+          aria-controls="mobile-navigation"
+          aria-expanded={isMenuOpen}
+          aria-label={isMenuOpen ? "Menüyü kapat" : "Menüyü aç"}
+          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-outline-variant bg-white text-primary shadow-sm transition hover:border-primary md:hidden"
+          onClick={handleMenuToggle}
+          type="button"
+        >
+          <MenuIcon open={isMenuOpen} />
+        </button>
         <Link
           className="hidden rounded-lg bg-primary px-5 py-3 text-label-caps text-on-primary shadow-lg shadow-primary/10 hover:bg-primary-container sm:inline-flex"
           href="/#contact"
         >
           Randevu Al
         </Link>
+        </div>
+      </div>
+
+      <button
+        aria-hidden={!isMenuOpen}
+        className={`fixed inset-x-0 bottom-0 top-19 bg-primary/22 backdrop-blur-[2px] transition duration-300 md:hidden ${
+          isMenuOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
+        }`}
+        onClick={handleMenuClose}
+        tabIndex={isMenuOpen ? 0 : -1}
+        type="button"
+      />
+
+      <div
+        aria-hidden={!isMenuOpen}
+        className={`relative z-20 overflow-hidden border-t border-white/60 bg-white/95 shadow-xl transition-all duration-300 ease-out md:hidden ${
+          isMenuOpen
+            ? "pointer-events-auto max-h-[calc(100vh-5rem)] translate-y-0 opacity-100"
+            : "pointer-events-none max-h-0 -translate-y-3 opacity-0"
+        }`}
+        id="mobile-navigation"
+      >
+        <div className="mx-auto max-h-[calc(100dvh-5rem)] max-w-7xl overflow-y-auto overscroll-contain px-4 py-5 sm:px-6">
+          <div className="space-y-2 rounded-3xl bg-surface-container-low p-3">
+            <Link
+              className="block rounded-2xl bg-primary px-4 py-3 text-center text-label-caps text-on-primary"
+              href="/#contact"
+              onClick={handleMenuClose}
+            >
+              Randevu Al
+            </Link>
+            <Link
+              className="block rounded-2xl px-4 py-3 text-sm font-medium text-primary transition hover:bg-white"
+              href="/#services"
+              onClick={handleMenuClose}
+            >
+              Hizmetlerimiz
+            </Link>
+            {primaryLinks.map((item) => (
+              <Link
+                key={item.href}
+                className="block rounded-2xl px-4 py-3 text-sm font-medium text-on-surface-variant transition hover:bg-white hover:text-primary"
+                href={item.href}
+                onClick={handleMenuClose}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+
+          <div className="mt-4 rounded-3xl border border-outline-variant/60 bg-white p-4 shadow-sm">
+            <p className="text-label-caps text-secondary">UZMANLIK ALANLARI</p>
+            <div className="mt-4 grid gap-2 sm:grid-cols-2">
+              {serviceArticles.map((item) => (
+                <Link
+                  key={item.slug}
+                  className="rounded-2xl bg-surface-container-low px-4 py-3 text-sm text-on-surface-variant transition hover:bg-secondary-container hover:text-primary"
+                  href={`/hizmetler/${item.slug}`}
+                  onClick={handleMenuClose}
+                >
+                  {item.title}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </nav>
   );

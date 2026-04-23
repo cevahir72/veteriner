@@ -12,7 +12,7 @@ export function SiteFooter() {
   return (
     <footer
       id="contact"
-      className="border-t border-white/70 bg-[linear-gradient(180deg,rgba(251,249,248,0.4)_0%,rgba(244,223,203,0.08)_100%)] px-4 py-20 sm:px-6 lg:px-8"
+      className="border-t border-white/70 bg-[linear-gradient(180deg,rgba(251,249,248,0.4)_0%,rgba(244,223,203,0.08)_100%)] px-4 py-16 sm:px-6 sm:py-20 lg:px-8"
     >
       <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-4">
         <div>
@@ -20,7 +20,7 @@ export function SiteFooter() {
           <p className="mt-6 max-w-xs text-sm leading-7 text-on-surface-variant">
             Luks ve medikal mukemmeliyetin bulusma noktasi. Dostlariniz icin en iyisi.
           </p>
-          <div className="mt-6 flex gap-3">
+          <div className="mt-6 flex flex-wrap gap-3">
             <Link href="/" aria-label="Anasayfa">
               <FooterIcon label="V" />
             </Link>
@@ -65,13 +65,13 @@ export function SiteFooter() {
           <p className="mt-6 text-sm leading-7 text-on-surface-variant">
             Saglik ipuclari ve guncellemeler icin abone olun.
           </p>
-          <form className="mt-4 flex overflow-hidden rounded-xl border border-outline-variant bg-white shadow-sm">
+          <form className="mt-4 flex flex-col overflow-hidden rounded-xl border border-outline-variant bg-white shadow-sm sm:flex-row">
             <input
               className="min-w-0 flex-1 px-4 py-3 text-sm outline-none placeholder:text-on-surface-variant/70"
               placeholder="E-posta"
               type="email"
             />
-            <button className="bg-primary px-4 text-sm font-semibold text-on-primary hover:bg-primary-container" type="submit">
+            <button className="bg-primary px-4 py-3 text-sm font-semibold text-on-primary hover:bg-primary-container" type="submit">
               Gonder
             </button>
           </form>
